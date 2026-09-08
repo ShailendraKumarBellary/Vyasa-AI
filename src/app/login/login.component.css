@@ -1,0 +1,174 @@
+ /* Logo Styling */
+      .logo-box {
+        width: 56px;
+        height: 56px;
+        background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        color: #f59e0b; /* Warm Gold Tone */
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 12px auto;
+        border: 1px solid #334155;
+        box-shadow: 0 4px 20px rgba(245, 158, 11, 0.2);
+      }
+
+      /* Sub-branding text below logo */
+      .brand-credits {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 24px;
+      }
+
+      .author-name {
+        font-size: 0.75rem;
+        font-weight: 800;
+        color: #1e293b;
+        letter-spacing: 0.12em;
+      }
+
+      .tagline {
+        font-size: 0.62rem;
+        font-weight: 600;
+        color: #64748b;
+        letter-spacing: 0.08em;
+        margin-top: 2px;
+      }
+      /* Container Layout */
+      .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #f8fafc;
+        font-family:
+          'Inter',
+          -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          Roboto,
+          sans-serif;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+      /* Main Card */
+      .login-card {
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.05),
+          0 8px 10px -6px rgba(0, 0, 0, 0.01);
+        border: 1px solid #e2e8f0;
+        padding: 40px;
+        width: 100%;
+        max-width: 420px;
+        text-align: center;
+        box-sizing: border-box;
+      }
+
+      /* SVG Logo Container */
+      .logo-box {
+        width: 52px;
+        height: 52px;
+        background-color: #2563eb;
+        color: #ffffff;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px auto;
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+      }
+
+      /* Headings & Subtitles */
+      .login-card h2 {
+        margin: 0 0 8px 0;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #0f172a;
+        letter-spacing: -0.02em;
+      }
+
+      .subtitle {
+        margin: 0 0 28px 0;
+        font-size: 0.9rem;
+        color: #64748b;
+        line-height: 1.5;
+      }
+
+      /* Form Elements */
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 20px;
+        width: 100%;
+      }
+
+      .form-group label {
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: #475569;
+        letter-spacing: 0.05em;
+        margin-bottom: 8px;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 12px 14px;
+        font-size: 0.95rem;
+        color: #1e293b;
+        background-color: #f8fafc;
+        border: 1px solid #cbd5e1;
+        border-radius: 10px;
+        outline: none;
+        transition: all 0.2s ease-in-out;
+        box-sizing: border-box;
+      }
+
+      .form-group input:focus {
+        background-color: #ffffff;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+      }
+
+      .form-group input::placeholder {
+        color: #94a3b8;
+      }
+
+      /* Validation Error Message */
+      .error-text {
+        color: #ef4444;
+        font-size: 0.8rem;
+        margin-top: 6px;
+        font-weight: 500;
+        text-align: left;
+      }
+
+      /* Continue to Session Button Styling */
+      .btn-submit {
+        width: 100%;
+        padding: 14px 20px;
+        background-color: #3b82f6;
+        color: #ffffff;
+        font-size: 0.95rem;
+        font-weight: 600;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+      }
+
+      .btn-submit:hover {
+        background-color: #2563eb;
+        box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+        transform: translateY(-1px);
+      }
+
+      .btn-submit:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+      }

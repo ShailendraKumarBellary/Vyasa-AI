@@ -1,0 +1,140 @@
+<div class="app-viewport">
+
+  <header class="navbar">
+    <div class="brand">
+      <div class="logo-box">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 10a3 3 0 1 1 6 0c0 1.5-1 2.5-1.5 3.5h-3C10 12.5 9 11.5 9 10z"></path>
+          <line x1="10" y1="16" x2="14" y2="16"></line>
+          <line x1="11" y1="18" x2="13" y2="18"></line>
+          <line x1="12" y1="2" x2="12" y2="4"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="19.78" y1="4.22" x2="18.36" y2="5.64"></line>
+          <line x1="2" y1="10" x2="4" y2="10"></line>
+          <line x1="20" y1="10" x2="22" y2="10"></line>
+        </svg>
+      </div>
+      
+      <div class="brand-title-row">
+        <span class="developer-name">Ved Vyasa Technical Interview Mentor</span>
+
+        <div class="info-wrapper" (mouseenter)="showWorkflowInfo = true" (mouseleave)="showWorkflowInfo = false">
+          <button class="info-btn" aria-label="Workflow Info">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+          </button>
+
+          <div class="workflow-card" *ngIf="showWorkflowInfo">
+            <div class="workflow-title">How to Use Vyasa AI</div>
+            <ol class="workflow-steps">
+              <li><strong>Start:</strong> Click "Start Interview" to launch your session.</li>
+              <li><strong>Voice Dropdown:</strong> Select your preferred AI human voice in the navbar.</li>
+              <li><strong>Check-ins:</strong> Vyasa will ask how you are doing and adapt to your pace.</li>
+              <li><strong>"I Don't Know":</strong> Tap the shortcut button if you want Vyasa to explain a concept.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controls & User Actions -->
+    <div class="nav-controls">
+      <!-- Active Logged In User Display -->
+      <div class="user-badge" *ngIf="userEmail" [title]="userEmail">
+        <svg class="user-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+        <span class="user-email-text">{{ userEmail }}</span>
+      </div>
+
+      <!-- Select Voice Control -->
+      <div class="select-wrapper">
+        <select class="voice-select" [(ngModel)]="selectedVoiceURI" (ngModelChange)="onVoiceChange($event)">
+          <option *ngFor="let voice of availableVoices" [value]="voice.voiceURI">
+            {{ voice.name }} ({{ voice.lang }})
+          </option>
+        </select>
+      </div>
+
+      <!-- Status Indicator -->
+      <div class="status-badge" [class]="status.toLowerCase()">
+        <span class="status-dot"></span>
+        <span class="status-text">{{ status }}</span>
+      </div>
+
+      <!-- Logout Button -->
+      <button class="btn-logout" (click)="logout()">
+        <span>Logout</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="main-stage">
+    <!-- Central Interactive Orb Stage -->
+    <div class="orb-section">
+      <div class="orb-wrapper" [class]="status.toLowerCase()"
+        (click)="status === 'STANDBY' ? startVyasa() : stopVyasa()">
+        <div class="glow-ring ring-outer"></div>
+        <div class="glow-ring ring-inner"></div>
+
+        <div class="core-orb">
+          <svg *ngIf="status === 'STANDBY'" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"></path>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+          </svg>
+
+          <div *ngIf="status !== 'STANDBY'" class="voice-waves">
+            <span class="wave-bar"></span>
+            <span class="wave-bar"></span>
+            <span class="wave-bar"></span>
+            <span class="wave-bar"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Transmission Card -->
+    <div class="response-card" *ngIf="vyasaResponse">
+      <div class="card-header">
+        <div class="header-tag">
+          <span class="status-pulse"></span>
+          <span>VYASA TRANSMISSION</span>
+        </div>
+
+        <button class="btn-copy-transmission" (click)="copyEntireTranscript()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span>{{ isTransmissionCopied ? 'Copied Full Chat!' : 'Copy Full Conversation' }}</span>
+        </button>
+      </div>
+
+      <div class="card-body-content">
+        <p class="card-body">{{ vyasaResponse }}</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="button-group">
+      <button class="btn btn-start" *ngIf="status === 'STANDBY'" (click)="startVyasa()">
+        Start Interview
+      </button>
+
+      <button class="btn btn-shortcut" *ngIf="status !== 'STANDBY'" (click)="dontKnowShortcut()">
+        💡 Explain This / I Don't Know
+      </button>
+
+      <button class="btn btn-end" *ngIf="status !== 'STANDBY'" (click)="stopVyasa()">
+        End Session
+      </button>
+    </div>
+  </footer>
+
+</div>
