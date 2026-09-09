@@ -108,23 +108,39 @@ export class HomeComponent implements OnInit, OnDestroy {
     await this.loadPreviousHistory();
 
     /**
-     * Listen for completed speech recognition results.
+     * User has started speaking.
+     *
+     * IMPORTANT:
+     * Cancel the inactivity/follow-up timer immediately.
+     *
+     * Otherwise the 20-second timer could fire while the
+     * candidate is still giving a long answer.
+     */
+    this.voiceRecognitionService.speechStart$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        console.log('Candidate started speaking - cancelling follow-up timer');
+
+        if (this.followUpTimer) {
+          clearTimeout(this.followUpTimer);
+          this.followUpTimer = null;
+        }
+      });
+
+    /**
+     * Completed speech result.
      */
     this.voiceRecognitionService.speechResult$
       .pipe(takeUntil(this.destroy$))
       .subscribe(async (text: string) => {
         const cleanText = text.trim();
 
-        /**
-         * Ignore empty speech.
-         */
         if (!cleanText) {
           return;
         }
 
         /**
-         * Ignore duplicate results while another
-         * answer is already being processed.
+         * Ignore duplicate voice results.
          */
         if (this.isProcessingVoiceInput) {
           console.log('Ignoring duplicate voice result:', cleanText);
@@ -133,8 +149,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
 
         /**
-         * Do not accept new speech while Vyasa
-         * is speaking or processing.
+         * Do not process new speech while Vyasa is already
+         * speaking or processing another request.
          */
         if (this.status === 'SPEAKING' || this.status === 'PROCESSING') {
           console.log('Ignoring voice input because status is:', this.status);
@@ -448,20 +464,26 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.clearInactivityTimers();
 
     /**
-     * Follow-up timer.
+     * Give the candidate enough time to start answering.
      *
-     * Existing behavior retained.
+     * IMPORTANT:
+     * This timer is only active while the candidate has NOT
+     * started speaking.
+     *
+     * Once speechStart$ fires, the timer is cancelled.
      */
     this.followUpTimer = setTimeout(() => {
-      if (this.status === 'LISTENING') {
+      if (this.status === 'LISTENING' && !this.isProcessingVoiceInput) {
+        console.log('Candidate has not started speaking. Sending follow-up.');
+
         this.sendToVyasa(
-          'The candidate has been quiet for 15 seconds. Check in on them warmly or ask if they need a hint.',
+          'The candidate has been quiet for 45 seconds. Check in on them warmly or ask if they need a hint.',
         );
       }
-    }, 20000);
+    }, 45000);
 
     /**
-     * End the session after 3 minutes.
+     * End the interview after 3 minutes.
      */
     this.sessionEndTimer = setTimeout(() => {
       this.stopVyasa();
