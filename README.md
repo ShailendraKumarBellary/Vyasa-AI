@@ -1,29 +1,101 @@
 # VyasaAI
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.21.
+## AI-Powered Voice Interview Assistant
 
-## Development server
+VyasaAI is an AI-powered interview assistant built with Angular. It provides an interactive interview experience where candidates can communicate with an AI interviewer using their **voice or text**.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+The application listens to the candidate's response, converts speech into text using the browser's Speech Recognition API, sends the conversation securely to an AI backend, and responds using voice synthesis.
 
-## Code scaffolding
+---
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## 🚀 Live Application
 
-## Build
+**VyasaAI:**  
+https://vyasa-ai.vercel.app/
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+---
 
-## Running unit tests
+## 📸 Application Preview
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Login
 
-## Running end-to-end tests
+The application provides a simple authentication flow before starting an interview session.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### AI Interview Interface
 
-## Further help
+Candidates can interact with Vyasa using voice and receive spoken AI responses.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-<img width="3822" height="844" alt="image" src="https://github.com/user-attachments/assets/4a339e95-3207-41a0-8b2b-cf51b35e9f9a" />
-<img width="1538" height="1840" alt="image" src="https://github.com/user-attachments/assets/baa4bcef-9080-45e1-a2e0-964daa7f177c" />
+---
+
+## ✨ Features
+
+- 🤖 AI-powered interview assistant
+- 🎙️ Voice-based interview interaction
+- 📝 Speech-to-text using browser Speech Recognition
+- 🔊 Text-to-speech AI responses
+- 💬 Conversational interview flow
+- 🧠 Maintains conversation context during an interview
+- 🔄 Automatically continues listening after AI responses
+- ⏱️ Intelligent silence detection
+- 🗣️ Supports longer candidate responses
+- 🎧 Selectable English speech voices
+- 💾 Interview conversation history
+- 📋 Copy complete interview transcript
+- 🔐 Authentication
+- 📱 Responsive user interface
+- ☁️ Deployed on Vercel
+- 🔒 OpenAI API key protected on the server
+
+---
+
+## 🏗️ Architecture
+
+```text
+                    ┌─────────────────────┐
+                    │      Candidate      │
+                    │                     │
+                    │  Voice / Text Input │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │   Angular Frontend  │
+                    │                     │
+                    │  VyasaAI Interface  │
+                    └──────────┬──────────┘
+                               │
+                  Speech Recognition
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │   Voice Service     │
+                    │                     │
+                    │ Browser Speech API  │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │    /api/chat        │
+                    │                     │
+                    │ Vercel Serverless   │
+                    │      Function       │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │      OpenAI API     │
+                    │                     │
+                    │   AI Interviewer    │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │   AI Response       │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │ Speech Synthesis    │
+                    │                     │
+                    │  AI Voice Response  │
+                    └─────────────────────┘
