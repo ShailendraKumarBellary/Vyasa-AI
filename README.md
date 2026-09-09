@@ -99,7 +99,7 @@ Candidates can interact with Vyasa using voice and receive spoken AI responses.
                     │                     │
                     │  AI Voice Response  │
                     └─────────────────────┘
-
+``` text
 
 <img width="1538" height="1840" alt="image" src="https://github.com/user-attachments/assets/cee37ada-28b5-4656-aefc-d6b70367e1bc" />
 <img width="3822" height="844" alt="image" src="https://github.com/user-attachments/assets/3791ed32-b8e6-4c2c-9f90-8706d0bebec1" />
